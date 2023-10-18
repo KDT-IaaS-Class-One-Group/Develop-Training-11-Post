@@ -1,5 +1,6 @@
 //* 내장 모듈 가져오기
 const http = require('http');
+const querystring = require('querystring')
 
 //* index.html 모듈 가져올 수 있게 file system Fs 변수 생성
 const fs = require('fs');
@@ -29,6 +30,9 @@ const server = http.createServer((request, response) => {
       }
     });
     //* 기능 페이지 제작
+  } else if (request.method === 'POST' && pathname === '/signUP') {
+    response.writeHead(200, { 'Content-Type': 'text/plain' })
+    response.end('signUP success!')
   } else if (request.method === 'GET' && request.url === '/e-mail') {
     fs.readFile('email.html', (err, data) => {
       if (err) {

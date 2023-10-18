@@ -19,7 +19,7 @@ const server = http.createServer((request, response) => {
   let pageURL = request.url;
   let pathname = url.parse(pageURL, true).pathname;
 //* 메인 페이지 조건문
-  if (request.method === 'GET' && request.url === '/') {
+  if (request.method === 'POST' && request.url === '/') {
     fs.readFile('signUp.html', (err, data) => {
       if (err) {
         console.log('호출 에러');
@@ -29,7 +29,7 @@ const server = http.createServer((request, response) => {
       }
     });
     //* 기능 페이지 제작
-  } else if (request.method === 'GET' && request.url === '/e-mail') {
+  } else if (request.method === 'POST' && request.url === '/e-mail') {
     fs.readFile('email.html', (err, data) => {
       if (err) {
         console.log('호출 에러');

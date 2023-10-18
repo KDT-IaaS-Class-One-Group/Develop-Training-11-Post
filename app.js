@@ -18,7 +18,7 @@ const contentT = [
 //* 서버 생성
 const server = http.createServer((request, response) => {
   let pageURL = request.url;
-  let pathname = url.parse(pageURL, true).pathname;
+  let parsedUrl = url.parse(pageURL, true);
 //* 메인 페이지 조건문
   if (request.method === 'GET' && request.url === '/') {
     fs.readFile('signUp.html', (err, data) => {
@@ -30,7 +30,12 @@ const server = http.createServer((request, response) => {
       }
     });
     //* 기능 페이지 제작
-  } else if (request.method === 'POST' && pathname === '/signUP') {
+  } else if (request.method === 'POST' && parsedUrl.pathname === '/signUP') {
+
+    console.log("form 입력으로부터 받은 데이터 확인 -> ", parsedUrl.query);
+    console.log("form 입력으로부터 받은 데이터 확인 -> ", parsedUrl.query.username);
+    console.log("form 입력으로부터 받은 데이터 확인 -> ", parsedUrl.query.password);
+
     response.writeHead(200, { 'Content-Type': 'text/plain' })
     response.end('signUP success!')
   } else if (request.method === 'GET' && request.url === '/e-mail') {

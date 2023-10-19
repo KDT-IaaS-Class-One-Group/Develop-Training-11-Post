@@ -1,5 +1,3 @@
-# Develop-Training-11-Post
-
 # signUp.html
 -  form tag를 이용하여 파일 구성 (input 사용하여 ID, password, email 등과 같은 기능 구현)
 -  sign up 버튼 클릭 시 submit 활성화

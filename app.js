@@ -56,18 +56,7 @@ const server = http.createServer((request, response) => {
       response.writeHead(200, { 'Content-Type': 'text/html' });
       response.end(data);
     });
-  }
-  // else if (request.method === 'GET' && request.url === '/e-mail') {
-  //   fs.readFile('email.html', (err, data) => {
-  //     if (err) {
-  //       console.log('호출 에러');
-  //     } else {
-  //       response.writeHead(200, contentT[0]);
-  //       response.end(data);
-  //     }
-  //   });
-  // }
-  else {
+  } else {
     response.writeHead(404, { 'Content-Type': 'text/html; charset= utf-8' });
     response.end('<h1>요청 페이지를 찾을 수 없습니다</h1>');
   }

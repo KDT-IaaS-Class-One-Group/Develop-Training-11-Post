@@ -45,12 +45,13 @@ const server = http.createServer((request, response) => {
         // 콘솔 출력용
         request.on('end', () => {
           const parseBody = querystring.parse(body);
-          const { username, password, samePassword } = parseBody;
+          const { username, password, samePassword, email } = parseBody;
 
           console.log('form 입력으로부터 받은 데이터 확인 -> ', parseBody);
           console.log('form 입력으로부터 받은 데이터 확인 -> ', username);
           console.log('form 입력으로부터 받은 데이터 확인 -> ', password);
           console.log('form 입력으로부터 받은 데이터 확인 -> ', samePassword);
+          console.log('form 입력으로부터 받은 데이터 확인 -> ', email);
         });
       }
       response.writeHead(200, { 'Content-Type': 'text/html' });

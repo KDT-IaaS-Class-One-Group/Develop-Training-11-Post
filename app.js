@@ -69,7 +69,7 @@ const server = http.createServer((request, response) => {
             );
           } else {
             response.writeHead(200,{"Content-Type": "text/plain"})
-            response.end("login Fail!");
+            response.end('Login fail');
           }
         });
       }

@@ -31,12 +31,14 @@ const server = http.createServer((request, response) => {
     });
     //* 기능 페이지 제작
   } else if (request.method === 'POST' && parsedUrl.pathname === '/sign-up') {
+    // DB 저장용
     let body = '';
 
     request.on('data', (chunk) => {
       body += chunk.toString();
     });
 
+    // 콘솔 출력용
     request.on('end', () => {
       const parseBody = querystring.parse(body);
       const { username, password, samePassword } = parseBody;

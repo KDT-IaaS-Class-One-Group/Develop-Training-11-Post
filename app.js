@@ -1,6 +1,6 @@
 //* 내장 모듈 가져오기
 const http = require('http');
-const querystring = require('querystring')
+const querystring = require('querystring');
 
 //* index.html 모듈 가져올 수 있게 file system Fs 변수 생성
 const fs = require('fs');
@@ -10,16 +10,16 @@ const url = require('url');
 const path = require('path');
 
 const contentT = [
-  {'Content-Type': 'text/html; charset= utf-8'},
-  {'Content-Type': 'text/css; charset= utf-8'},
-  {'Content-Type': 'image/jpeg; charset= utf-8'}
+  { 'Content-Type': 'text/html; charset= utf-8' },
+  { 'Content-Type': 'text/css; charset= utf-8' },
+  { 'Content-Type': 'image/jpeg; charset= utf-8' },
 ];
 
 //* 서버 생성
 const server = http.createServer((request, response) => {
   let pageURL = request.url;
   let parsedUrl = url.parse(pageURL, true);
-//* 메인 페이지 조건문
+  //* 메인 페이지 조건문
   if (request.method === 'GET' && request.url === '/') {
     fs.readFile('signUp.html', (err, data) => {
       if (err) {
@@ -30,14 +30,25 @@ const server = http.createServer((request, response) => {
       }
     });
     //* 기능 페이지 제작
-  } else if (request.method === 'POST' && parsedUrl.pathname === '/signUP') {
+  } else if (request.method === 'POST' && parsedUrl.pathname === '/sign-up') {
+    let body = '';
 
-    console.log("form 입력으로부터 받은 데이터 확인 -> ", parsedUrl.query);
-    console.log("form 입력으로부터 받은 데이터 확인 -> ", parsedUrl.query.username);
-    console.log("form 입력으로부터 받은 데이터 확인 -> ", parsedUrl.query.password);
+    request.on('data', (chunk) => {
+      body += chunk.toString();
+    });
 
-    response.writeHead(200, { 'Content-Type': 'text/plain' })
-    response.end('signUP success!')
+    request.on('end', () => {
+      const parseBody = querystring.parse(body);
+      const { username, password, samePassword } = parseBody;
+
+      console.log('form 입력으로부터 받은 데이터 확인 -> ', parseBody);
+      console.log('form 입력으로부터 받은 데이터 확인 -> ', username);
+      console.log('form 입력으로부터 받은 데이터 확인 -> ', password);
+      console.log('form 입력으로부터 받은 데이터 확인 -> ', samePassword);
+
+      response.writeHead(200, { 'Content-Type': 'text/plain' });
+      response.end('signUP success!');
+    });
   } else if (request.method === 'GET' && request.url === '/e-mail') {
     fs.readFile('email.html', (err, data) => {
       if (err) {

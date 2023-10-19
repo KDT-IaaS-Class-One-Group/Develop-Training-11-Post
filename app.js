@@ -48,6 +48,15 @@ const server = http.createServer((request, response) => {
       console.log('form 입력으로부터 받은 데이터 확인 -> ', password);
       console.log('form 입력으로부터 받은 데이터 확인 -> ', samePassword);
 
+      const signUpAsset= {
+        id: username,
+        password : password,
+        inputBoxColor : "#D9D9D9",
+        textColor : "B6B6B6",
+        pointColor: "FF6666"
+      } 
+      console.log(signUpAsset);
+
       response.writeHead(200, { 'Content-Type': 'text/plain' });
       response.end('signUP success!');
     });

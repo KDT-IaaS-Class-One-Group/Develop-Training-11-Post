@@ -48,14 +48,32 @@ const server = http.createServer((request, response) => {
           const { username, password, samePassword, email } = parseBody;
 
           console.log('form 입력으로부터 받은 데이터 확인 -> ', parseBody);
-          console.log('form 입력으로부터 받은 데이터 확인 -> ', username);
-          console.log('form 입력으로부터 받은 데이터 확인 -> ', password);
-          console.log('form 입력으로부터 받은 데이터 확인 -> ', samePassword);
-          console.log('form 입력으로부터 받은 데이터 확인 -> ', email);
+          // console.log('form 입력으로부터 받은 데이터 확인 -> ', username);
+          // console.log('form 입력으로부터 받은 데이터 확인 -> ', password);
+          // console.log('form 입력으로부터 받은 데이터 확인 -> ', samePassword);
+          // console.log('form 입력으로부터 받은 데이터 확인 -> ', email);
+          if (password === samePassword) {
+            response.writeHead(200, { 'Content-Type': 'text/html' });
+            response.end(
+              `<!DOCTYPE html>
+              <html lang="en">
+              <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Document</title>
+              </head>
+              <body>
+                <h1>${parseBody.username}님! 접속을 환영함 ㅋ</h1>
+              </body>
+              </html>`
+            );
+          } else {
+            response.writeHead(200,{"Content-Type": "text/plain"})
+            response.end("login Fail!");
+          }
         });
       }
-      response.writeHead(200, { 'Content-Type': 'text/html' });
-      response.end(data);
+      // pw 값이 동일할 때 진행
     });
   } else {
     response.writeHead(404, { 'Content-Type': 'text/html; charset= utf-8' });

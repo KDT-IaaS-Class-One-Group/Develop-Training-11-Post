@@ -16,8 +16,8 @@ function idCheck(object) {
 }
 
 //* 소문자 대문자 체크 하는 콘솔
-console.log(idCheck('aA'))
-console.log(idCheck('a'))
-console.log(idCheck('A'))
+// console.log(idCheck('aA'))
+// console.log(idCheck('a'))
+// console.log(idCheck('A'))
 
 module.exports = idCheck

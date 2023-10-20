@@ -4,6 +4,8 @@ const querystring = require('querystring');
 //* index.html 모듈 가져올 수 있게 file system Fs 변수 생성
 const fs = require('fs');
 const url = require('url');
+const idCheck = require('./static/js/idCheck.js');
+const pwCheck = require('./static/js/pwCheck.js');
 const emailPage = require('./static/js/email-page.js');
 const signUpAsset = require('./static/js/signUpAsset.js');
 
@@ -29,7 +31,7 @@ const server = http.createServer((request, response) => {
       }
     });
     //* 기능 페이지 제작
-  }  else if (request.method === 'POST' && request.url === '/login') {
+  } else if (request.method === 'POST' && request.url === '/login') {
     let body = '';
 
     request.on('data', (chunk) => {
@@ -39,15 +41,12 @@ const server = http.createServer((request, response) => {
     // 콘솔 출력용
     request.on('end', () => {
       const parseBody = querystring.parse(body);
-      const { username, password, samePassword } = parseBody;
-
-      console.log('form 입력으로부터 받은 데이터 확인 -> ', parseBody);
-      console.log('form 입력으로부터 받은 데이터 확인 -> ', username);
-      console.log('form 입력으로부터 받은 데이터 확인 -> ', password);
-      console.log('form 입력으로부터 받은 데이터 확인 -> ', samePassword);
-
-      response.writeHead(200, { 'Content-Type': 'text/html' });
-      response.end(nameEp(username));
+      Object.assign(signUpAsset, parseBody);
+      if (idCheck(signUpAsset.id)) {
+      } else if (pwCheck(signUpAsset.password, signUpAsset.samePassword)) {
+        response.writeHead(200, { 'Content-Type': 'text/html' });
+        response.end(emailPage(signUpAsset.id));
+      }
     });
   } else {
     response.writeHead(404, { 'Content-Type': 'text/html; charset= utf-8' });

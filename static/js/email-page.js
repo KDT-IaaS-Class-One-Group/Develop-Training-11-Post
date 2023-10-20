@@ -1,4 +1,4 @@
-const nameEp = (body) => {
+const emailPage = (body) => {
     return `<!DOCTYPE html>
     <html lang="en">
     <head>
@@ -12,4 +12,4 @@ const nameEp = (body) => {
     </html>`
 } 
 
-module.exports = nameEp; 
+module.exports = emailPage; 

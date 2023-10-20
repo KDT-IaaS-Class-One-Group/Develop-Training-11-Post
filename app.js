@@ -6,6 +6,7 @@ const fs = require('fs');
 const url = require('url');
 const idCheck = require('./static/js/idCheck.js');
 const pwCheck = require('./static/js/pwCheck.js');
+const emailCheck = require('./static/js/emailCheck.js')
 const emailPage = require('./static/js/email-page.js');
 const signUpAsset = require('./static/js/signUpAsset.js');
 
@@ -42,7 +43,7 @@ const server = http.createServer((request, response) => {
     request.on('end', () => {
       const parseBody = querystring.parse(body);
       Object.assign(signUpAsset, parseBody);
-      if (idCheck(signUpAsset.id) && pwCheck(signUpAsset.password, signUpAsset.samePassword)) {
+      if (idCheck(signUpAsset.id) && pwCheck(signUpAsset.password, signUpAsset.samePassword) && emailCheck(signUpAsset.email)) {
         response.writeHead(200, { 'Content-Type': 'text/html' });
         response.end(emailPage(signUpAsset.id));
       }

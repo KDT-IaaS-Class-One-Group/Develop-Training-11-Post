@@ -6,7 +6,7 @@ const fs = require('fs');
 const url = require('url');
 const idCheck = require('./static/js/idCheck.js');
 const pwCheck = require('./static/js/pwCheck.js');
-const emailCheck = require('./static/js/emailCheck.js')
+const emailCheck = require('./static/js/emailCheck.js');
 const emailPage = require('./static/js/email-page.js');
 const signUpAsset = require('./static/js/signUpAsset.js');
 
@@ -43,9 +43,22 @@ const server = http.createServer((request, response) => {
     request.on('end', () => {
       const parseBody = querystring.parse(body);
       Object.assign(signUpAsset, parseBody);
-      if (idCheck(signUpAsset.id) && pwCheck(signUpAsset.password, signUpAsset.samePassword) && emailCheck(signUpAsset.email)) {
+      if (
+        idCheck(signUpAsset.id) &&
+        pwCheck(signUpAsset.password, signUpAsset.samePassword) &&
+        emailCheck(signUpAsset.email)
+      ) {
         response.writeHead(200, { 'Content-Type': 'text/html' });
         response.end(emailPage(signUpAsset.id));
+      }
+    });
+  } else if (request.method === 'GET' && parsedUrl.pathname === '/static/css/signStyle.css') {
+    fs.readFile('./static/css/signStyle.css', (err, data) => {
+      if (err) {
+        console.log('호출 에러');
+      } else {
+        response.writeHead(200, contentT[1]);
+        response.end(data);
       }
     });
   } else {

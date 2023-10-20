@@ -61,6 +61,15 @@ const server = http.createServer((request, response) => {
         response.end(data);
       }
     });
+  }  else if (request.method === 'GET' && parsedUrl.pathname === '/static/css/mailStyle.css') {
+    fs.readFile('./static/css/mailStyle.css', (err, data) => {
+      if (err) {
+        console.log('호출 에러');
+      } else {
+        response.writeHead(200, contentT[1]);
+        response.end(data);
+      }
+    });
   } else {
     response.writeHead(404, { 'Content-Type': 'text/html; charset= utf-8' });
     response.end('<h1>요청 페이지를 찾을 수 없습니다</h1>');

@@ -44,7 +44,7 @@ const server = http.createServer((request, response) => {
 
         // 콘솔 출력용
         request.on('end', () => {
-          const userName = require('./module/userName.js')
+          const userName = require('./module/userName.js');
           const parseBody = querystring.parse(body);
           const { username, password, samePassword, email } = parseBody;
 
@@ -54,10 +54,8 @@ const server = http.createServer((request, response) => {
           // console.log('form 입력으로부터 받은 데이터 확인 -> ', samePassword);
           // console.log('form 입력으로부터 받은 데이터 확인 -> ', email);
           if (password === samePassword) {
-            response.writeHead(200, { 'Content-Type': 'text/html' });
-            response.end(
-              userName(username)
-            );
+            response.writeHead(200, contentT[0]);
+            response.end(data);
           } else {
             response.writeHead(200,{"Content-Type": "text/plain"})
             response.end('Login fail');

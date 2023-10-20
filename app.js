@@ -52,6 +52,24 @@ const server = http.createServer((request, response) => {
         response.end(emailPage(signUpAsset.id));
       }
     });
+  } else if (request.method === 'POST' && request.url === '/send') {
+    let bodys = '';
+
+    request.on('data', (chunk) => {
+      bodys += chunk.toString();
+    });
+
+    // 콘솔 출력용
+    request.on('end', () => {
+      const parseBodys = querystring.parse(bodys);
+      const { title, textSend } = parseBodys;
+
+      console.log(`form 입력으로부터 받은 데이터 확인 ->`, title);
+      console.log(`form 입력으로부터 받은 데이터 확인 ->`, textSend);
+
+      response.writeHead(200, { 'Content-Type': 'text/plain' });
+      response.end('send!');
+    });
   } else if (request.method === 'GET' && parsedUrl.pathname === '/static/css/signStyle.css') {
     fs.readFile('./static/css/signStyle.css', (err, data) => {
       if (err) {
@@ -61,7 +79,7 @@ const server = http.createServer((request, response) => {
         response.end(data);
       }
     });
-  }  else if (request.method === 'GET' && parsedUrl.pathname === '/static/css/mailStyle.css') {
+  } else if (request.method === 'GET' && parsedUrl.pathname === '/static/css/mailStyle.css') {
     fs.readFile('./static/css/mailStyle.css', (err, data) => {
       if (err) {
         console.log('호출 에러');

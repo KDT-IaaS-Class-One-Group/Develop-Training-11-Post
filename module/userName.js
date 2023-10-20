@@ -1,4 +1,4 @@
-const userInfo = function(username){
+const userInfo = (username) => {
   `<!DOCTYPE html>
     <html lang="en">
     <head>

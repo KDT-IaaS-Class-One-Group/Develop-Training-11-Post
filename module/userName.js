@@ -1,5 +1,4 @@
-const userName = function(username){
-return
+const userInfo = function(username){
   `<!DOCTYPE html>
     <html lang="en">
     <head>
@@ -13,4 +12,4 @@ return
     </html>`
 }
 
-module.exports = userName;
+module.exports = userInfo;

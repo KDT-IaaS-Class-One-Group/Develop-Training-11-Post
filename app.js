@@ -6,7 +6,7 @@ const querystring = require('querystring');
 const fs = require('fs');
 const url = require('url');
 const path = require('path');
-const userInfo = require('./module/userName.js');
+const userInfo = require('./module/userInfo.js');
 
 const contentT = [
   { 'Content-Type': 'text/html; charset= utf-8' },
@@ -40,29 +40,8 @@ const server = http.createServer((request, response) => {
     request.on('end', () => {
       const parseBody = querystring.parse(body);
       const { username, password, samePassword, email } = parseBody;
-
-      console.log('form 입력으로부터 받은 데이터 확인 -> ', parseBody);
-      console.log('form 입력으로부터 받은 데이터 확인 -> ', username);
-      console.log('form 입력으로부터 받은 데이터 확인 -> ', password);
-      console.log('form 입력으로부터 받은 데이터 확인 -> ', samePassword);
-      console.log('form 입력으로부터 받은 데이터 확인 -> ', email);
-      if (password === samePassword) {
-        response.writeHead(200, {"Content-Type": "text/html"});
-        response.end(`<!DOCTYPE html>
-        <html lang="en">
-        <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Document</title>
-        </head>
-        <body>
-          <h1>${username}님! 접속을 환영함 ㅋ</h1>
-        </body>
-        </html>`);
-      } else {
-        response.writeHead(200,{"Content-Type": "text/plain"})
-        response.end('Login fail');
-      }
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.end(userInfo(username));
     });
   } else {
     response.writeHead(404, { 'Content-Type': 'text/html; charset= utf-8' });

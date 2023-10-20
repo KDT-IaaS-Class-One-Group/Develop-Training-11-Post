@@ -4,7 +4,8 @@ const querystring = require('querystring');
 //* index.html 모듈 가져올 수 있게 file system Fs 변수 생성
 const fs = require('fs');
 const url = require('url');
-const nameEp = require('./static/js/nameEp.js');
+const emailPage = require('./static/js/email-page.js');
+const signUpAsset = require('./static/js/signUpAsset.js');
 
 const contentT = [
   { 'Content-Type': 'text/html; charset= utf-8' },

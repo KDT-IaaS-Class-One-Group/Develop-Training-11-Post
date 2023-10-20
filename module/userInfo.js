@@ -7,7 +7,7 @@ const userInfo = (a) => {
       <title>Document</title>
     </head>
     <body>
-      <h1>${a}님! 접속을 환영함 ㅋ</h1>
+      <h1>${a}님! 접속을 환영해요!</h1>
     </body>
     </html>`
 }

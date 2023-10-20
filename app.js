@@ -9,6 +9,7 @@ const pwCheck = require('./static/js/pwCheck.js');
 const emailCheck = require('./static/js/emailCheck.js');
 const emailPage = require('./static/js/email-page.js');
 const signUpAsset = require('./static/js/signUpAsset.js');
+const emailAsset = require('./static/js/emailAsset.js');
 
 const contentT = [
   { 'Content-Type': 'text/html; charset= utf-8' },
@@ -62,13 +63,14 @@ const server = http.createServer((request, response) => {
     // 콘솔 출력용
     request.on('end', () => {
       const parseBodys = querystring.parse(bodys);
-      const { title, textSend } = parseBodys;
+      Object.assign(emailAsset, parseBodys);
+      if (emailAsset.title && emailAsset.textSend) {
+        console.log(`form 입력으로부터 받은 데이터 확인 ->`, emailAsset.title);
+        console.log(`form 입력으로부터 받은 데이터 확인 ->`, emailAsset.textSend);
 
-      console.log(`form 입력으로부터 받은 데이터 확인 ->`, title);
-      console.log(`form 입력으로부터 받은 데이터 확인 ->`, textSend);
-
-      response.writeHead(200, { 'Content-Type': 'text/plain' });
-      response.end('send!');
+        response.writeHead(200, { 'Content-Type': 'text/plain' });
+        response.end('send!');
+      }
     });
   } else if (request.method === 'GET' && parsedUrl.pathname === '/static/css/signStyle.css') {
     fs.readFile('./static/css/signStyle.css', (err, data) => {

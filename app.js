@@ -42,8 +42,7 @@ const server = http.createServer((request, response) => {
     request.on('end', () => {
       const parseBody = querystring.parse(body);
       Object.assign(signUpAsset, parseBody);
-      if (idCheck(signUpAsset.id)) {
-      } else if (pwCheck(signUpAsset.password, signUpAsset.samePassword)) {
+      if (idCheck(signUpAsset.id) && pwCheck(signUpAsset.password, signUpAsset.samePassword)) {
         response.writeHead(200, { 'Content-Type': 'text/html' });
         response.end(emailPage(signUpAsset.id));
       }

@@ -44,6 +44,7 @@ const server = http.createServer((request, response) => {
 
         // 콘솔 출력용
         request.on('end', () => {
+          const userName = require('./module/userName.js')
           const parseBody = querystring.parse(body);
           const { username, password, samePassword, email } = parseBody;
 
@@ -55,17 +56,7 @@ const server = http.createServer((request, response) => {
           if (password === samePassword) {
             response.writeHead(200, { 'Content-Type': 'text/html' });
             response.end(
-              `<!DOCTYPE html>
-              <html lang="en">
-              <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Document</title>
-              </head>
-              <body>
-                <h1>${parseBody.username}님! 접속을 환영함 ㅋ</h1>
-              </body>
-              </html>`
+              userName(username)
             );
           } else {
             response.writeHead(200,{"Content-Type": "text/plain"})

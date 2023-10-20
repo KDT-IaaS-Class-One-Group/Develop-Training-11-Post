@@ -28,16 +28,7 @@ const server = http.createServer((request, response) => {
       }
     });
     //* 기능 페이지 제작
-  } else if (request.method === 'GET' && parsedUrl.pathname === 'static/js/signUpAction.js') {
-    fs.readFile('./static/js/signUpAction.js', (err, data) => {
-      if (err) {
-        console.log('호출 에러');
-      } else {
-        response.writeHead(200, contentT[3]);
-        response.end(data);
-      }
-    });
-  } else if (request.method === 'POST' && request.url === '/login') {
+  }  else if (request.method === 'POST' && request.url === '/login') {
     let body = '';
 
     request.on('data', (chunk) => {
